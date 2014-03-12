@@ -20,51 +20,36 @@
 </script>
 <script type="text/javascript">
   function initialize() {
-    var classroom = new google.maps.LatLng(35.084280,-106.624073)
+    var classroom = new google.maps.LatLng(46.860855,-121.754315)
     var myOptions = {
-      zoom: 8,
+      zoom: 12,
       center: classroom,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapTypeId: google.maps.MapTypeId.SATELLITE,
       styles: [
               {
-                featureType: "water",
-                stylers: [
-                  { visibility: "on" },
-                  { hue: "#0008ff" }
-                ]
-              },{
-                featureType: "road.highway",
-                stylers: [
-                  { hue: "#ff1a00" }
-                ]
-              },{
-                featureType: "road.arterial",
-                stylers: [
-                  { hue: "#ffa200" },
-                  { visibility: "simplified" }
-                ]
-              },{
-                featureType: "road.local",
-                stylers: [
-                  { visibility: "off" }
-                ]
-              },{
-                featureType: "administrative",
-                stylers: [
-                  { visibility: "simplified" }
-                ]
-              },{
-                featureType: "poi",
-                stylers: [
-                  { visibility: "on" },
-                  { hue: "#00ffff" }
-                ]
-              },{
-                featureType: "poi",
-                stylers: [
-                  { visibility: "on" }
-                ]
-              }
+                            "featureType": "road.highway",
+                            "stylers": [
+                              { "visibility": "on" },
+                              { "hue": "#2200ff" }
+                            ]
+                          },{
+                            "featureType": "poi.park",
+                            "stylers": [
+                              { "visibility": "on" },
+                              { "weight": 8 },
+                              { "hue": "#00ffdd" },
+                              { "saturation": 100 },
+                              { "lightness": -38 }
+                            ]
+                          },{
+                            "featureType": "landscape.natural",
+                            "elementType": "labels",
+                            "stylers": [
+                              { "visibility": "on" },
+                              { "hue": "#ff4d00" }
+                            ]
+                          }
+                          
             ]
     };
     var map = new google.maps.Map(document.getElementById("map_canvas"),
