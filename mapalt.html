@@ -25,12 +25,9 @@
                 var myOptions = {
                     zoom: 12,
                     center: classroom,
-                    mapTypeId: google.maps.MapTypeId.SATELLITE
+                    mapTypeId: google.maps.MapTypeId.TERRAIN
                 };
-                var map = new google.maps.Map(
-                    document.getElementById("map_canvas"), 
-                    myOptions);
-                 }
+                
                 Styles: [
                           {
                             "featureType": "road.highway",
@@ -59,7 +56,7 @@
                         ]
                  var map = new google.maps.Map(
                      document.getElementById("map_canvas"), 
-                        myOptions);
+                        myOptions);}
         </script>
     </head>
     
