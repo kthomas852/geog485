@@ -16,10 +16,17 @@
 	</p>
 	<h1>Midterm Exam</h1>
 	<h2>Question 1: </h2>
-	  <p> Spacial extent of a GML file?  ogrinfo <br>
-	      Spacial reference system of a raster file in the format of a GeoTIFF?  gdalinfo
+	  <p> What command line utility would you use to determine spacial extent of a GML file?  ogrinfo <br>
+	      What command line utility would you use to determine spacial reference system of a raster file in the format of a GeoTIFF?  gdalinfo
 	
 	<h2>Question 2:  </h2>
+	
+	<p> Determine the spatial extent of an available layer:  	SERVICE=WMS& REQUEST=GetFeatureInfo <br>
+	    Obtain a list of coverages from a WCS:   			SERVICE=WCS& REQUEST=DescribeCoverages <br>
+	    Determine what file formats are supported by a WFS: 	SERVICE=WFS& REQUEST=GetCapabilities <br>
+	    Retrieve a map image from a Web Map Service:   		SERVICE=WMS& REQUEST=GetMap <br>
+	    Retrieve data from an available coverage from a WCS:   	SERVICE=WCS& REQUEST=GetCoverage <br>
+	</p>
 	
 	<h2>Question 3:  </h2>
 	
@@ -81,7 +88,7 @@
     	     request=DescribeCoverage&
     	     COVERAGE=V <br>
     	     <a href="http://sdf.ndbc.noaa.gov/thredds/wcs/hfradar_uswc_500m?
-    	     service=wcs&
+    	     service=WCS&
     	     version=1.0.0&
     	     request=DescribeCoverage&
     	     COVERAGE=V"> Link </a>
