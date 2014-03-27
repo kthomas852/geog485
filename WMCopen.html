@@ -8,6 +8,13 @@
         var zoom = 10;
         var map;
         var layer;
+        
+         var baseControls = [
+        	new OpenLayers.Control.Navigation({}),
+        	new OpenLayers.Control.PanZoomBar({}),
+			new OpenLayers.Control.LayerSwitcher({}),
+			new OpenLayers.Control.Permalink(),
+			new OpenLayers.Control.MousePosition({})
 
         // =============== Initialization function ===================
         function init(){
