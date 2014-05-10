@@ -9,16 +9,31 @@
         var map;
         var layer;
         
-         var baseControls = [
-        	new OpenLayers.Control.Navigation({}),
-        	new OpenLayers.Control.PanZoomBar({}),
-			new OpenLayers.Control.LayerSwitcher({}),
-			new OpenLayers.Control.Permalink(),
-			new OpenLayers.Control.MousePosition({})
+    //define map controls
+    navControl = 		new OpenLayers.Control.Navigation({}),
+    panControl = 		new OpenLayers.Control.PanZoomBar({}),   
+	switchControl = 	new OpenLayers.Control.LayerSwitcher({}),
+	linkControl = 		new OpenLayers.Control.Permalink(),
+	positionControl = 	new OpenLayers.Control.MousePosition({})
 
+	var baseControls = [        
+        	navControl,
+        	panControl,
+        	switchControl,
+        	linkControl,
+        	positionControl
+        ];
+			
         // =============== Initialization function ===================
         function init(){
-            map = new OpenLayers.Map( 'map' );
+            map = new OpenLayers.Map( 'map', {
+            				projection: 'EPSG:900913',
+							maxExtent: new OpenLayers.Bounds(-20037508, -20037508,
+							20037508, 20037508.34),
+							maxResolution: 156543.0339,
+							units: 'm', 
+							controls: baseControls
+					});
             
             // =========== OSM Map ====================
             layer = new OpenLayers.Layer.OSM( "Open Street Map");
@@ -35,7 +50,7 @@
         
     </script>
     <style type="text/css">
-        #map {width:70%; height:500px}
+        #map {width:1000; height:500px}
     </style>
   </head>
   <body onload="init()">
@@ -57,7 +72,8 @@
       		<h2>A:</h2>
         		<p>OpenStreetMap (OSM) and Google. I chose these services because I am not very fond of Microsoft.</p>
       		<h2>Q4:</h2>
-	      		<h3>What is the scale of your map (local, regional, continental, global)? How will this translate into your selection of an appropriate default zoom level for your map?</h3>
+	      		<h3>What is the scale of your map (local, regional, continental, global)? How will this translate into your <br>
+	      		    selection of an appropriate default zoom level for your map?</h3>
       		<h2>A:</h2>
         		<p>Local scale.</p>
       		<h2>Q5:</h2>
