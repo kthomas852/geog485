@@ -20,7 +20,7 @@
         var lat = 35.084506;
         var zoom = 13;
         var map;
-	var gmap, bikeroutes, day, night, d&d;                    // Google Maps Layers
+	var gmap, dangerzone;                    // Google Maps Layers
 	
 
         // =============== Initialization function ===================
@@ -50,47 +50,11 @@
             } );
             
             // ================= Google Maps ====================     
-            bikeroutes = new OpenLayers.Layer.Vector("Bicycle Routes", {
+            dangerzone = new OpenLayers.Layer.Vector("Danger Areas", {
                 projection: map.displayProjection,
                 strategies: [new OpenLayers.Strategy.Fixed()],
                 protocol: new OpenLayers.Protocol.HTTP({
-                    url: "https://raw.githubusercontent.com/kthomas852/geog485/gh-pages/BikeRoutes.kml",
-                    format: new OpenLayers.Format.KML({
-                        extractStyles: true,
-                        extractAttributes: true
-                    })
-                })
-            });
-            
-            day = new OpenLayers.Layer.Vector("Day Time Accidents", {
-                projection: map.displayProjection,
-                strategies: [new OpenLayers.Strategy.Fixed()],
-                protocol: new OpenLayers.Protocol.HTTP({
-                    url: "https://raw.githubusercontent.com/kthomas852/geog485/gh-pages/day.kml",
-                    format: new OpenLayers.Format.KML({
-                        extractStyles: true,
-                        extractAttributes: true
-                    })
-                })
-            });
-            
-            night = new OpenLayers.Layer.Vector("Night Time Accidents", {
-                projection: map.displayProjection,
-                strategies: [new OpenLayers.Strategy.Fixed()],
-                protocol: new OpenLayers.Protocol.HTTP({
-                    url: "https://raw.githubusercontent.com/kthomas852/geog485/gh-pages/night.kml",
-                    format: new OpenLayers.Format.KML({
-                        extractStyles: true,
-                        extractAttributes: true
-                    })
-                })
-            });
-            
-            d&d = new OpenLayers.Layer.Vector("Accidents at Dusk & Dawn", {
-                projection: map.displayProjection,
-                strategies: [new OpenLayers.Strategy.Fixed()],
-                protocol: new OpenLayers.Protocol.HTTP({
-                    url: "https://raw.githubusercontent.com/kthomas852/geog485/gh-pages/d&d.kml",
+                    url: "https://raw.githubusercontent.com/kthomas852/geog485/gh-pages/dangerzone.kml",
                     format: new OpenLayers.Format.KML({
                         extractStyles: true,
                         extractAttributes: true
@@ -105,9 +69,9 @@
             
             
 
-            map.addLayers([gmap, bikeroutes, day, night, d&d]);
+            map.addLayers([gmap, dangerzone]);
             
-            select = new OpenLayers.Control.SelectFeature(bikeroutes);
+            select = new OpenLayers.Control.SelectFeature(dangerzone);
             
             
             map.setCenter(
@@ -137,7 +101,7 @@
    
    </div>
    
-	<h2>Bicycle accident map showing bike routes and severity of injury</h2>
+	<h2>Map showing the roads with the most incident of accidents</h2>
     
     <div id="map"></div>
     
