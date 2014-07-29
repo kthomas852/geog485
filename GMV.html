@@ -20,7 +20,7 @@
         var lat = 35.084506;
         var zoom = 13;
         var map;
-	var gmap, bikeroutes, day, night, d&d;                    // Google Maps Layers
+	var gmap, bikeroutes, day, night, dd;                    // Google Maps Layers
 	
 
         // =============== Initialization function ===================
@@ -86,7 +86,7 @@
                 })
             });
             
-            d&d = new OpenLayers.Layer.Vector("Accidents at Dusk & Dawn", {
+            dd = new OpenLayers.Layer.Vector("Accidents at Dusk & Dawn", {
                 projection: map.displayProjection,
                 strategies: [new OpenLayers.Strategy.Fixed()],
                 protocol: new OpenLayers.Protocol.HTTP({
@@ -105,7 +105,7 @@
             
             
 
-            map.addLayers([gmap, bikeroutes, day, night, d&d]);
+            map.addLayers([gmap, bikeroutes, day, night, dd]);
             
             select = new OpenLayers.Control.SelectFeature(bikeroutes);
             
