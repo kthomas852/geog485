@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1' />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<title>Pedal Power</title>
+	<link rel="stylesheet" type="text/css" href="http://kthomas852.github.io/cycleplus/geog485.css">
+	<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/kthomas852/cycleplus/gh-pages/images/bike.png"/>
+	<link rel="stylesheet" href="../theme/default/style.css" type="text/css">
+    <link rel="stylesheet" href="style.css" type="text/css">
+	<script type="text/javascript" src="http://openlayers.org/api/OpenLayers.js"></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.2&mkt=en-us"></script>
+	<script src="../OpenLayers.js"></script>
+	<script type="text/javascript">        
+	// define global variables
+        var lon = -106.624899;
+        var lat = 35.084506;
+        var zoom = 13;
+        var map;
+	var gphy, gmap, ghyb, gsat, sundials;                    // Google Maps Layers
+	
+
+        // =============== Initialization function ===================
+        function init(){
+            map = new OpenLayers.Map( 'map',{                
+                controls: [
+                        new OpenLayers.Control.Navigation({zoomWheelEnabled:false}),
+                        new OpenLayers.Control.NavToolbar(),
+                        new OpenLayers.Control.PanZoomBar(),
+                        new OpenLayers.Control.LayerSwitcher({'ascending':false}),
+                        new OpenLayers.Control.Permalink(),
+                        new OpenLayers.Control.ScaleLine(),
+                        new OpenLayers.Control.Permalink('permalink'),
+                        new OpenLayers.Control.MousePosition(),
+                        new OpenLayers.Control.OverviewMap(),
+                        new OpenLayers.Control.KeyboardDefaults()
+                    ],
+                maxExtent: new OpenLayers.Bounds(
+                -128 * 156543.0339,
+                -128 * 156543.0339,
+                128 * 156543.0339,
+                128 * 156543.0339),
+                maxResolution: 156543.0339,                
+                units: 'm',
+                projection: new OpenLayers.Projection("EPSG:900913"),
+                displayProjection: new OpenLayers.Projection("EPSG:4326"),
+            } );
+            
+            // ================= Google Maps ====================     
+            sundials = new OpenLayers.Layer.Vector("Day Time Accidents", {
+                projection: map.displayProjection,
+                strategies: [new OpenLayers.Strategy.Fixed()],
+                protocol: new OpenLayers.Protocol.HTTP({
+                    url: "kml/sundials.kml",
+                    format: new OpenLayers.Format.KML({
+                        extractStyles: true,
+                        extractAttributes: true
+                    })
+                })
+            });
+           
+            gmap = new OpenLayers.Layer.Google(
+                "Google Streets", // the default
+                {sphericalMercator:true}
+            );
+            
+            
+
+            map.addLayers([gmap, sundials]);
+            
+            select = new OpenLayers.Control.SelectFeature(sundials);
+            
+            
+            map.setCenter(
+                new OpenLayers.LonLat(lon, lat).transform(
+                    new OpenLayers.Projection("EPSG:4326"),
+                    map.getProjectionObject()
+                ), zoom
+            );
+	  
+            map.addControl(new OpenLayers.Control.LayerSwitcher() );
+           
+        }
+        
+       
+        // =============== End of Initialization Function ============
+    </script>
+  </head>
+  <body onLoad="init()">
+	
+<div id='cssmenu'>
+<ul>
+   <li class='active'><a href='http://kthomas852.github.io/cycleplus/index.html'><span>Home</span></a></li>
+   <li class='has-sub'><a href='#'><span>Maps</span></a>
+   	  <ul>
+   	  	<li><a href="http://kthomas852.github.io/cycleplus/GMV.html"><span>Google Maps View</span></a></li>
+   	  	<li><a href="http://kthomas852.github.io/cycleplus/Cen_4th.html"><span>Problem Areas</span></a></li>
+   	  	<li><a href="http://kthomas852.github.io/cycleplus/Day.html"><span>Day Time</span></a></li>
+   	  	<li><a href="http://kthomas852.github.io/cycleplus/Night.html"><span>Night Time</span></a></li>
+   	  	<li><a href="http://kthomas852.github.io/cycleplus/D&D.html"><span>Dusk & Dawn</span></a></li>
+   	  </ul>
+   <li class='has-sub'><a href='#'><span>Analysis</span></a>
+   	  <ul>
+   	  	<li><a href="http://kthomas852.github.io/cycleplus/GMV.html"><span>Google Maps View</span></a></li>
+   	  	<li><a href="http://kthomas852.github.io/cycleplus/Cen_4th.html"><span>Problem Areas</span></a></li>
+   	  	<li><a href="http://kthomas852.github.io/cycleplus/Gbikes.html"><span>Ghost Bikes</span></a></li>
+   	  </ul>  	
+   <li class='has-sub'><a href='http://kthomas852.github.io/cycleplus/Ghost.html'><span>Ghost Bikes</span></a></li>
+   <li class='has-sub'><a href='http://kthomas852.github.io/cycleplus/Ref.html'><span>References</span></a></li>
+      </ul>
+</ul>
+</div>
+	This is where I interject a little thought
+    
+    <div id="map"></div>
+    
+   
+
+</body>
+</html>

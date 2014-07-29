@@ -1,0 +1,240 @@
+@charset "UTF-8";
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:600);
+
+/* CSS Document */
+
+html { 
+  background: url(http://www.rachelannlindsay.com/wp-content/uploads/2011/06/Bike_couple_web.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100% }
+  
+body { height: 100%; margin: 0; padding: 0 }
+body { margin-left: 10%; margin-right: 10%; font-family: Verdana, sans-serif; font-size:90% }
+
+h1 {color:#222222;font-size:1.5em;font-style:italic;font-weight:normal;padding-top:1em;padding-bottom:.6em;background-color: #FFFFFF }
+h2 {color:green;padding-top:1em;font-size:1.1em;background-color: #FFFFFF}
+h3 {color:#555555;font-style:italic;padding-top:1.3em;font-size:1.0em;font-weight:normal;background-color: #FFFFFF}
+p {padding-bottom:1em;}
+li {padding-bottom:.5em;}
+#nav{ font-size:.9em;border:2px solid #ccc;border-width:2px 0;list-style:none; margin:2em 0 0 0;padding:10px;text-align:center;background-color:#555555}
+#nav li{ display:inline;padding:8px;color:#cccccc;}
+#nav a { display:inline-block;color:#ffffff;text-transform:none;}
+#map-canvas { height: 100%;margin-bottom:3em; }
+#map { width:80%; height: 80%; margin-bottom:1em; }
+.infoBox { color:black;width:200; }
+#footer {margin-top:5em;margin-bottom:5em;font-size:.6em;color:#cccccc;text-transform:uppercase;}
+
+/* Menu CSS */#cssmenu,
+#cssmenu > ul {
+  /*background: url(images/highlight-bg.png) repeat;*/
+  padding-bottom: 3px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  background-color:#CCCCCC;
+}
+#cssmenu:before,
+#cssmenu:after,
+#cssmenu > ul:before,
+#cssmenu > ul:after {
+  content: '';
+  display: table;
+}
+#cssmenu:after,
+#cssmenu > ul:after {
+  clear: both;
+}
+#cssmenu {
+  width: auto;
+  zoom: 1;
+}
+#cssmenu > ul {
+  /*background: url(images/menu-bg.png) repeat;*/
+  margin: 0;
+  padding: 0;
+  position: relative;
+  background-color:#e1583e;
+}
+#cssmenu > ul li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#cssmenu > ul > li {
+  float: left;
+  position: relative;
+}
+#cssmenu > ul > li > a {
+  padding: 15px 26px;
+  display: block;
+  color: white;
+  font-size: 13px;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-shadow: 0 -1px 0 #9e3825;
+  text-shadow: 0 -1px 0 rgba(116, 37, 2, 0.7);
+  line-height: 18px;
+}
+#cssmenu > ul > li:hover > a {
+  /*background: url(images/hover.png) repeat;*/
+  text-shadow: 0 -1px 0 #97321f;
+  text-shadow: 0 -1px 0 rgba(122, 42, 26, 0.64);
+  background-color:#555555;
+}
+#cssmenu > ul > li > a > span {
+  line-height: 18px;
+}
+#cssmenu > ul > li.active > a,
+#cssmenu > ul > li > a:active {
+  /*background: url(images/active.png) repeat;*/
+  background-color:#e56949;
+}
+/* Childs */
+#cssmenu > ul ul {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 120px;
+  /*background: url(images/highlight-bg.png) repeat;*/
+  margin: 0;
+  padding: 0;
+  z-index: -1;
+  background-color:#CCCCCC;
+}
+#cssmenu > ul li:hover ul {
+  opacity: 1;
+  visibility: visible;
+  margin: 0;
+  color: #000;
+  z-index: 2;
+  top: 48px;
+  left: 0;
+}
+#cssmenu > ul ul:before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  width: 100%;
+  height: 20px;
+  background: transparent;
+}
+#cssmenu > ul ul li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+#cssmenu > ul ul li a {
+  padding: 18px 26px;
+  display: block;
+  color: #393939;
+  font-size: 13px;
+  text-decoration: none;
+  text-transform: uppercase;
+  width: 120px;
+  border-left: 4px solid transparent;
+  -webkit-transition: all 0.35s ease-in-out;
+  -moz-transition: all 0.35s ease-in-out;
+  -ms-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+  text-shadow: 0 1px 0 white;
+}
+#cssmenu > ul ul li a:hover {
+  border-left: 4px solid #de553b;
+  /*background: url(images/hover.png) repeat;*/
+  color: white;
+  text-shadow: 0 1px 0 black;
+  background-color:#555555;
+}
+#cssmenu > ul ul li a:active {
+  /*background: url(images/menu-bg.png) repeat;*/
+  background-color:#e1583e;
+}
+/*styling for columns;*/
+#wrap {
+   width:1000px;
+   margin:0 auto;
+}
+#left_col {
+   float:left;
+   width:450px;
+}
+#right_col {
+   float:right;
+   width:450px;
+}
+
+.olControlAttribution {
+    bottom: 5px;
+}
+
+
+/**
+ * Map Examples Specific
+ */
+.smallmap {
+    width: 512px;
+    height: 256px;
+    border: 1px solid #ccc;
+}
+#tags {
+    display: none;
+}
+
+#docs p {
+    margin-bottom: 0.5em;
+}
+/* mobile specific */
+@media only screen and (max-width: 600px) {
+    body {
+        height           : 100%;
+        margin           : 0;
+        padding          : 0;
+        width            : 100%;
+    }
+    #map {
+        background : #7391ad;
+        width      : 100%;
+    }
+    #map {
+        border : 0;
+        height : 250px;
+    }
+    #title {
+        font-size   : 1.3em;
+        line-height : 2em;
+        text-indent : 1em;
+        margin      : 0;
+        padding     : 0;
+    }
+    #docs {
+        bottom     : 0;
+        padding    : 1em;
+    }
+    #shortdesc {
+        color      : #aaa;
+        font-size  : 0.8em;
+        padding    : 1em;
+        text-align : right;
+    }
+    #tags {
+        display : none;
+    }
+}
+@media only screen and (orientation: landscape) and (max-width: 600px) {
+    #shortdesc {
+       float: right;
+       width: 25%;
+    }
+    #map {
+        width: 70%;
+    }
+    #docs {
+        font-size: 12px;
+    }
+}
+body {
+    -webkit-text-size-adjust: none;
+}
