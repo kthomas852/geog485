@@ -2,86 +2,59 @@
 
 <html>
 	<head>
-	
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
 	<title>Pedal Power</title>
 	<link rel="stylesheet" type="text/css" href="http://kthomas852.github.io/geog485/style.css">
 	<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/kthomas852/cycleplus/gh-pages/images/bike.png"/>
 	
-	<script type="text/javascript" src="http://openlayers.org/api/OpenLayers.js"></script>
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-	<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.2&mkt=en-us"></script>
 	
-	<script type="text/javascript">        
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+	
+	
+	
+	
+	<script>        
 	// define global variables
-        var lon = -106.624899;
-        var lat = 35.084506;
-        var zoom = 13;
-        var map;
-	var gmap, dangerzone;                    // Google Maps Layers
+        
+                    // Google Maps Layers
 	
 
         // =============== Initialization function ===================
-        function init(){
-            map = new OpenLayers.Map( 'map',{                
-                controls: [
-                        new OpenLayers.Control.Navigation({zoomWheelEnabled:false}),
-                        new OpenLayers.Control.NavToolbar(),
-                        new OpenLayers.Control.PanZoomBar(),
-                        new OpenLayers.Control.LayerSwitcher({'ascending':false}),
-                        new OpenLayers.Control.Permalink(),
-                        new OpenLayers.Control.ScaleLine(),
-                        new OpenLayers.Control.Permalink('permalink'),
-                        new OpenLayers.Control.MousePosition(),
-                        new OpenLayers.Control.OverviewMap(),
-                        new OpenLayers.Control.KeyboardDefaults()
-                    ],
-                maxExtent: new OpenLayers.Bounds(
-                -128 * 156543.0339,
-                -128 * 156543.0339,
-                128 * 156543.0339,
-                128 * 156543.0339),
-                maxResolution: 156543.0339,                
-                units: 'm',
-                projection: new OpenLayers.Projection("EPSG:900913"),
-                displayProjection: new OpenLayers.Projection("EPSG:4326"),
-            } );
-            
-            // ================= Google Maps ====================     
-            dangerzone = new OpenLayers.Layer.Vector("Danger Areas", {
-                projection: map.displayProjection,
-                strategies: [new OpenLayers.Strategy.Fixed()],
-                protocol: new OpenLayers.Protocol.HTTP({
-                    url: "https://raw.githubusercontent.com/kthomas852/geog485/gh-pages/BikeRoutes.kml",
-                    format: new OpenLayers.Format.KML({
-                        extractStyles: true,
-                        extractAttributes: true
-                    })
-                })
-            });
-           
-            gmap = new OpenLayers.Layer.Google(
-                "Google Streets", // the default
-                {sphericalMercator:true}
-            );
-            
-            
+       function initialize() {
+  var myLatlng = new google.maps.LatLng(35.084506, -106.624899);
+  var mapOptions = {
+    zoom: 13,
+    center: myLatlng
+  };
 
-            map.addLayers([gmap, dangerzone]);
-            
-            select = new OpenLayers.Control.SelectFeature(dangerzone);
-            
-            
-            map.setCenter(
-                new OpenLayers.LonLat(lon, lat).transform(
-                    new OpenLayers.Projection("EPSG:4326"),
-                    map.getProjectionObject()
-                ), zoom
-            );
-	  
-            map.addControl(new OpenLayers.Control.LayerSwitcher() );
-           
-        }
-        
+  var map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+
+  var kmlLayer = new google.maps.KmlLayer({
+    url: 'https://raw.githubusercontent.com/kthomas852/geog485/gh-pages/night.kml',
+    suppressInfoWindows: true,
+    map: map
+  });
+  
+   var bikeroutes = new google.maps.KmlLayer({
+    url: 'https://raw.githubusercontent.com/kthomas852/geog485/gh-pages/BikeRoutes.kml',
+    suppressInfoWindows: true,
+    map: map
+  });
+
+  google.maps.event.addListener(kmlLayer, 'click', function(kmlEvent) {
+    var text = kmlEvent.featureData.description;
+    showInContentWindow(text);
+  });
+
+  function showInContentWindow(text) {
+    var sidediv = document.getElementById('content-window');
+    sidediv.innerHTML = text;
+  }
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
        
         // =============== End of Initialization Function ============
     </script>
@@ -102,8 +75,9 @@
 		areas are highlighted in red, areas of decreasing danger follow the<br> 
 		color scheme from yellow to green.</h2>
 		<br>
-    <img src="https://raw.githubusercontent.com/kthomas852/geog485/gh-pages/images/DangerLegend.jpg" width="322" height="79">
-    <div id="map"></div>
+    <img src="https://raw.githubusercontent.com/kthomas852/geog485/gh-pages/images/DangerLegend.jpg" width="322" height="79"><br>
+    <div id="map-canvas" style="width:58%; height:80%; float:left"></div>
+    <div id="content-window" style="width:19%; height:100%; float:left; background: #FFFFFF"></div>
     
    
 

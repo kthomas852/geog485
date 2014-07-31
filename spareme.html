@@ -1,72 +1,57 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="stylesheet" href="http://openlayers.org/dev/theme/default/style.css" type="text/css">
-    <link rel="stylesheet" href="http://openlayers.org/dev/examples/style.css" type="text/css">
-
-<style type="text/css">
-    html, body {
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>KML feature details</title>
+    <style>
+      html, body, #map-canvas {
         height: 100%;
-    }
-    #map {
-        width: 100%;
-        height: 80%;
-        border: 1px solid black;
-    }
-    .olPopup p { margin:0px; font-size: .9em;}
-    .olPopup h2 { font-size:1.2em; }
-</style>
-<script src="http://openlayers.org/dev/OpenLayers.js"></script>
-<script type="text/javascript">
-        var lon = 5;
-        var lat = 40;
-        var zoom = 5;
-        var map, select;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script>
+function initialize() {
+  var myLatlng = new google.maps.LatLng(35.084506, -106.624899);
+  var mapOptions = {
+    zoom: 13,
+    center: myLatlng
+  };
 
-        function init(){
-            var options = {
-                projection: new OpenLayers.Projection("EPSG:900913"),
-                displayProjection: new OpenLayers.Projection("EPSG:4326")
-            };
-            map = new OpenLayers.Map('map', options);
-            var mapnik = new OpenLayers.Layer.Google("Google Streets", {sphericalMercator:true}) ;
-            map.addLayer(mapnik);
+  var map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
 
-            var layer = new OpenLayers.Layer.GML("KML", "https://raw.githubusercontent.com/kthomas852/geog485/gh-pages/BikeRoutes.kml", {
-               format: OpenLayers.Format.KML,
-               formatOptions: {
-                 'extractStyles': true
-               }
-            });
-            map.addLayer(layer);
+  var kmlLayer = new google.maps.KmlLayer({
+    url: 'https://raw.githubusercontent.com/kthomas852/geog485/gh-pages/night.kml',
+    suppressInfoWindows: true,
+    map: map
+  });
+  
+   var bikeroutes = new google.maps.KmlLayer({
+    url: 'https://raw.githubusercontent.com/kthomas852/geog485/gh-pages/BikeRoutes.kml',
+    suppressInfoWindows: true,
+    map: map
+  });
 
-            map.addControl(new OpenLayers.Control.LayerSwitcher());
-            map.zoomToExtent(
-                new OpenLayers.Bounds(
-                    68.774414, 11.381836, 123.662109, 34.628906
-                ).transform(map.displayProjection, map.projection)
-            );
-        }
+  google.maps.event.addListener(kmlLayer, 'click', function(kmlEvent) {
+    var text = kmlEvent.featureData.description;
+    showInContentWindow(text);
+  });
+
+  function showInContentWindow(text) {
+    var sidediv = document.getElementById('content-window');
+    sidediv.innerHTML = text;
+  }
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
     </script>
- </head>
-
-
-<body onload="init()">
-      <h1 id="title">KML Layer Example</h1>
-
-      <div id="tags">
-          kml, popup, feature
-      </div>
-
-      <p id="shortdesc">
-          Demonstrates loading and displaying a KML file on top of a basemap.
-    </p>
-
-    <div id="map" class="smallmap"></div>
-
-    <div id="docs"></div>
+  </head>
+  <body>
+    <div id="map-canvas" style="width:79%; height:100%; float:left"></div>
+    <div id="content-window" style="width:19%; height:100%; float:left"></div>
   </body>
 </html>

@@ -54,7 +54,7 @@
                 projection: map.displayProjection,
                 strategies: [new OpenLayers.Strategy.Fixed()],
                 protocol: new OpenLayers.Protocol.HTTP({
-                    url: "https://raw.githubusercontent.com/kthomas852/geog485/gh-pages/dangerzone.kml",
+                    url: "https://raw.githubusercontent.com/kthomas852/geog485/gh-pages/night.kml",
                     format: new OpenLayers.Format.KML({
                         extractStyles: true,
                         extractAttributes: true
@@ -102,8 +102,7 @@
    </div>
    
 	<h2>Map showing the roads with the most incident of accidents.  High danger<br> 
-		areas are highlighted in red, areas of decreasing danger follow the<br> 
-		color scheme from yellow to green.</h2>
+		areas are highlighted in red, areas of lowest danger are in green.</h2>
 		<br>
     <img src="https://raw.githubusercontent.com/kthomas852/geog485/gh-pages/images/DangerLegend.jpg" width="322" height="79">
     <div id="map"></div>
