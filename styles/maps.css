@@ -8,7 +8,7 @@ var map = new OpenLayers.Map({
         new OpenLayers.Layer.Vector("KML", {
             strategies: [new OpenLayers.Strategy.Fixed()],
             protocol: new OpenLayers.Protocol.HTTP({
-                url: "kml/lines.kml",
+                url: "https://raw.githubusercontent.com/kthomas852/geog485/gh-pages/BikeRoutes.kml",
                 format: new OpenLayers.Format.KML({
                     extractStyles: true, 
                     extractAttributes: true,
