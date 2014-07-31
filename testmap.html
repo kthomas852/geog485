@@ -1,68 +1,36 @@
 <!DOCTYPE html>
-
 <html>
-	<head>
-	
-	<title>Pedal Power</title>
-	<link rel="stylesheet" type="text/css" href="http://kthomas852.github.io/geog485/style.css">
-	<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/kthomas852/cycleplus/gh-pages/images/bike.png"/>
-	<link rel="stylesheet" href="https://github.com/kthomas852/geog485/styles/maptheme.css" type="text/css">
-	
-	<script type="text/javascript">        
-	// define global variables
-        var lon = -106.624899;
-        var lat = 35.084506;
-        
-        var map;
-	var gmap, dangerzone;                    // Google Maps Layers
-	
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="https://github.com/kthomas852/geog485/styles/maptheme.css" type="text/css">
+        <link rel="stylesheet" href="https://github.com/kthomas852/geog485/styles/style.css" type="text/css">
+    </head>
+    <body>
+    <h1 id="title">KML Layer Example</h1>
 
-        // =============== Initialization function ===================
-        var map = new OpenLayers.Map({
-    div: "map",
-    layers: [
-          gmap = new OpenLayers.Layer.Google(
-                "Google Streets", // the default
-                {sphericalMercator:true}
-            );
-        new OpenLayers.Layer.Vector("KML", {
-            strategies: [new OpenLayers.Strategy.Fixed()],
-            protocol: new OpenLayers.Protocol.HTTP({
-                url: "https://raw.githubusercontent.com/kthomas852/geog485/gh-pages/dangerzone.kml",
-                format: new OpenLayers.Format.KML({
-                    extractStyles: true, 
-                    extractAttributes: true,
-                    maxDepth: 2
-                })
-            })
-        })
-    ],
-    center: new OpenLayers.LonLat(lon, lat),
-    zoom: 13
-});
-        // =============== End of Initialization Function ============
-    </script>
-  </head>
-  <body onLoad="init()">
-	
- <div id='cssmenu'>
-<ul>
-   <li class='active'><a href='http://kthomas852.github.io/geog485/index.html'><span>Home</span></a></li>
-   <li class='has-sub'><a href='http://kthomas852.github.io/geog485/GMV.html'><span>Danger Zones</span></a>
-   <li class='has-sub'><a href='http://kthomas852.github.io/geog485/Ride.html'><span>Where to Ride</span></a>
-   <li class='has-sub'><a href='http://kthomas852.github.io/geog485/Ref.html'><span>References</span></a></li>
-   
-   
-   </div>
-   
-	<h2>Map showing the roads with the most incident of accidents.  High danger<br> 
-		areas are highlighted in red, areas of decreasing danger follow the<br> 
-		color scheme from yellow to green.</h2>
-		<br>
-    <img src="https://raw.githubusercontent.com/kthomas852/geog485/gh-pages/images/DangerLegend.jpg" width="322" height="79">
-    <div id="map"></div>
+    <div id="tags">KML</div>
+
+    <p id="shortdesc">
+        Demonstrates loading and displaying a KML file on top of a basemap.
+    </p>
+
+    <div id="map" class="smallmap"></div>
+
+    <div id="docs">
+        <p>
+            A vector layer can be populated with features from a KML document
+            by configuring the layer with an HTTP protocol that points to the 
+            KML document and is configured with a KML format for parsing features.
+            The fixed strategy is used to load all features at once.
+        </p>
+        <p>
+            View the <a href="https://github.com/kthomas852/geog485/blob/gh-pages/styles/openlayers.css" target="_blank">kml-layer.js</a>
+            source to see how this is done.
+        </p>
+    </div>
+    <script src="https://github.com/kthomas852/geog485/styles/openlayers.css"></script>
     <script src="https://github.com/kthomas852/geog485/styles/maps.css"></script>
-   
-
-</body>
+    </body>
 </html>
