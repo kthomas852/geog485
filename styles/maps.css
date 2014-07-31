@@ -1,10 +1,12 @@
 var map = new OpenLayers.Map({
     div: "map",
     layers: [
-        new OpenLayers.Layer.WMS(
-            "WMS", "http://vmap0.tiles.osgeo.org/wms/vmap0",
-            {layers: "basic"}
-        ),
+    	var gmap = new OpenLayers.Layer.Google(
+                "Google Streets", // the default
+                {sphericalMercator:true}
+            );
+    
+      
         new OpenLayers.Layer.Vector("KML", {
             strategies: [new OpenLayers.Strategy.Fixed()],
             protocol: new OpenLayers.Protocol.HTTP({
