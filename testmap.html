@@ -1,42 +1,53 @@
 <!DOCTYPE html>
+
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>OpenLayers: Sundials on a Spherical Mercator Map</title>
-    <script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
-    <link rel="stylesheet" href="https://github.com/kthomas852/geog485/blob/gh-pages/styles/maptheme.css" type="text/css">
-    <link rel="stylesheet" href="https://github.com/kthomas852/geog485/blob/gh-pages/styles/style.css" type="text/css">
+	<head>
+	
+	<title>Pedal Power</title>
+	<link rel="stylesheet" type="text/css" href="http://kthomas852.github.io/geog485/style.css">
+	<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/kthomas852/cycleplus/gh-pages/images/bike.png"/>
+	
+	<script type="text/javascript" src="http://openlayers.org/api/OpenLayers.js"></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.2&mkt=en-us"></script>
+	
+	<script type="text/javascript">        
+	// define global variables
+        var lon = -106.624899;
+        var lat = 35.084506;
+        var zoom = 13;
+        var map;
+	var gmap, dangerzone;                    // Google Maps Layers
+	
 
-    <style type="text/css">
-        html, body {
-            height: 100%;
-        }
-        #map {
-            width: 100%;
-            height: 80%;
-            border: 1px solid black;
-        }
-        .olPopup p { margin:0px; font-size: .9em;}
-        .olPopup h2 { font-size:1.2em; }
-    </style>
-    <script src="https://github.com/kthomas852/geog485/blob/gh-pages/styles/openlayers.css"></script>
-    <script type="text/javascript">
-        var lon = 5;
-        var lat = 40;
-        var zoom = 5;
-        var map, select;
-
+        // =============== Initialization function ===================
         function init(){
-            var options = {
+            map = new OpenLayers.Map( 'map',{                
+                controls: [
+                        new OpenLayers.Control.Navigation({zoomWheelEnabled:false}),
+                        new OpenLayers.Control.NavToolbar(),
+                        new OpenLayers.Control.PanZoomBar(),
+                        new OpenLayers.Control.LayerSwitcher({'ascending':false}),
+                        new OpenLayers.Control.Permalink(),
+                        new OpenLayers.Control.ScaleLine(),
+                        new OpenLayers.Control.Permalink('permalink'),
+                        new OpenLayers.Control.MousePosition(),
+                        new OpenLayers.Control.OverviewMap(),
+                        new OpenLayers.Control.KeyboardDefaults()
+                    ],
+                maxExtent: new OpenLayers.Bounds(
+                -128 * 156543.0339,
+                -128 * 156543.0339,
+                128 * 156543.0339,
+                128 * 156543.0339),
+                maxResolution: 156543.0339,                
+                units: 'm',
                 projection: new OpenLayers.Projection("EPSG:900913"),
-                displayProjection: new OpenLayers.Projection("EPSG:4326")
-            };
-            map = new OpenLayers.Map('map', options);
-            var mapnik = new OpenLayers.Layer.OSM("OpenStreetMap (Mapnik)");
-            var gmap = new OpenLayers.Layer.Google("Google", {sphericalMercator:true});
-            var sundials = new OpenLayers.Layer.Vector("KML", {
+                displayProjection: new OpenLayers.Projection("EPSG:4326"),
+            } );
+            
+            // ================= Google Maps ====================     
+            dangerzone = new OpenLayers.Layer.Vector("Danger Areas", {
                 projection: map.displayProjection,
                 strategies: [new OpenLayers.Strategy.Fixed()],
                 protocol: new OpenLayers.Protocol.HTTP({
@@ -47,65 +58,54 @@
                     })
                 })
             });
-
-            map.addLayers([mapnik, gmap, sundials]);
-
-            select = new OpenLayers.Control.SelectFeature(sundials);
+           
+            gmap = new OpenLayers.Layer.Google(
+                "Google Streets", // the default
+                {sphericalMercator:true}
+            );
             
-            sundials.events.on({
-                "featureselected": onFeatureSelect,
-                "featureunselected": onFeatureUnselect
-            });
-  
-            map.addControl(select);
-            select.activate();   
+            
 
-            map.addControl(new OpenLayers.Control.LayerSwitcher());
-
-            map.zoomToExtent(
-                new OpenLayers.Bounds(
-                    68.774414, 11.381836, 123.662109, 34.628906
-                ).transform(map.displayProjection, map.projection)
+            map.addLayers([gmap, dangerzone]);
+            
+            select = new OpenLayers.Control.SelectFeature(dangerzone);
+            
+            
+            map.setCenter(
+                new OpenLayers.LonLat(lon, lat).transform(
+                    new OpenLayers.Projection("EPSG:4326"),
+                    map.getProjectionObject()
+                ), zoom
             );
+	  
+            map.addControl(new OpenLayers.Control.LayerSwitcher() );
+           
         }
-        function onPopupClose(evt) {
-            select.unselectAll();
-        }
-        function onFeatureSelect(event) {
-            var feature = event.feature;
-            var selectedFeature = feature;
-            var popup = new OpenLayers.Popup.FramedCloud("chicken", 
-                feature.geometry.getBounds().getCenterLonLat(),
-                new OpenLayers.Size(100,100),
-                "<h2>"+feature.attributes.name + "</h2>" + feature.attributes.description,
-                null, true, onPopupClose
-            );
-            feature.popup = popup;
-            map.addPopup(popup);
-        }
-        function onFeatureUnselect(event) {
-            var feature = event.feature;
-            if(feature.popup) {
-                map.removePopup(feature.popup);
-                feature.popup.destroy();
-                delete feature.popup;
-            }
-        }
+        
+       
+        // =============== End of Initialization Function ============
     </script>
   </head>
-  <body onload="init()">
-      <h1 id="title">OSM + Google Maps + KML Reprojection</h1>
+  <body onLoad="init()">
+	
+ <div id='cssmenu'>
+<ul>
+   <li class='active'><a href='http://kthomas852.github.io/geog485/index.html'><span>Home</span></a></li>
+   <li class='has-sub'><a href='http://kthomas852.github.io/geog485/GMV.html'><span>Danger Zones</span></a>
+   <li class='has-sub'><a href='http://kthomas852.github.io/geog485/Ride.html'><span>Where to Ride</span></a>
+   <li class='has-sub'><a href='http://kthomas852.github.io/geog485/Ref.html'><span>References</span></a></li>
+   
+   
+   </div>
+   
+	<h2>Map showing the roads with the most incident of accidents.  High danger<br> 
+		areas are highlighted in red, areas of decreasing danger follow the<br> 
+		color scheme from yellow to green.</h2>
+		<br>
+    <img src="https://raw.githubusercontent.com/kthomas852/geog485/gh-pages/images/DangerLegend.jpg" width="322" height="79">
+    <div id="map"></div>
+    
+   
 
-      <div id="tags">
-          osm, kml, spherical, mercator, reprojection, feature, popup, advanced
-      </div>
-
-      <p id="shortdesc">
-          Demonstrates loading and displaying a KML file on top of OpenStreetMap (OSM) and Google Maps data. Loads data from a KML file of sundials.
-    </p>
-
-    <div id="map" class="smallmap"></div>
-
-    <div id="docs"></div>
-  </body>
+</body>
 </html>

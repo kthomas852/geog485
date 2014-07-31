@@ -1,36 +1,72 @@
 <!DOCTYPE html>
 <html>
-    <head>
+  <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta name="apple-mobile-web-app-capable" content="yes">
-        <link rel="stylesheet" href="http://openlayers.org/dev/theme/default/style.css" type="text/css">
-        <link rel="stylesheet" href="http://openlayers.org/dev/examples/style.css" type="text/css">
-    </head>
-    <body>
-    <h1 id="title">KML Layer Example</h1>
+    <link rel="stylesheet" href="http://openlayers.org/dev/theme/default/style.css" type="text/css">
+    <link rel="stylesheet" href="http://openlayers.org/dev/examples/style.css" type="text/css">
 
-    <div id="tags">KML</div>
+<style type="text/css">
+    html, body {
+        height: 100%;
+    }
+    #map {
+        width: 100%;
+        height: 80%;
+        border: 1px solid black;
+    }
+    .olPopup p { margin:0px; font-size: .9em;}
+    .olPopup h2 { font-size:1.2em; }
+</style>
+<script src="http://openlayers.org/dev/OpenLayers.js"></script>
+<script type="text/javascript">
+        var lon = 5;
+        var lat = 40;
+        var zoom = 5;
+        var map, select;
 
-    <p id="shortdesc">
-        Demonstrates loading and displaying a KML file on top of a basemap.
+        function init(){
+            var options = {
+                projection: new OpenLayers.Projection("EPSG:900913"),
+                displayProjection: new OpenLayers.Projection("EPSG:4326")
+            };
+            map = new OpenLayers.Map('map', options);
+            var mapnik = new OpenLayers.Layer.Google("Google Streets", {sphericalMercator:true}) ;
+            map.addLayer(mapnik);
+
+            var layer = new OpenLayers.Layer.GML("KML", "https://raw.githubusercontent.com/kthomas852/geog485/gh-pages/BikeRoutes.kml", {
+               format: OpenLayers.Format.KML,
+               formatOptions: {
+                 'extractStyles': true
+               }
+            });
+            map.addLayer(layer);
+
+            map.addControl(new OpenLayers.Control.LayerSwitcher());
+            map.zoomToExtent(
+                new OpenLayers.Bounds(
+                    68.774414, 11.381836, 123.662109, 34.628906
+                ).transform(map.displayProjection, map.projection)
+            );
+        }
+    </script>
+ </head>
+
+
+<body onload="init()">
+      <h1 id="title">KML Layer Example</h1>
+
+      <div id="tags">
+          kml, popup, feature
+      </div>
+
+      <p id="shortdesc">
+          Demonstrates loading and displaying a KML file on top of a basemap.
     </p>
 
     <div id="map" class="smallmap"></div>
 
-    <div id="docs">
-        <p>
-            A vector layer can be populated with features from a KML document
-            by configuring the layer with an HTTP protocol that points to the 
-            KML document and is configured with a KML format for parsing features.
-            The fixed strategy is used to load all features at once.
-        </p>
-        <p>
-            View the <a href="http://openlayers.org/dev/examples/kml-layer.js" target="_blank">kml-layer.js</a>
-            source to see how this is done.
-        </p>
-    </div>
-    <script src="http://openlayers.org/dev/OpenLayers.js"></script>
-    <script src="http://openlayers.org/dev/examples/kml-layer.js"></script>
-    </body>
+    <div id="docs"></div>
+  </body>
 </html>
