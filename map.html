@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title> Map to GOLD FEVER </title>
+        <style type="text/css">
+            html { height: 100% }
+            body { height: 100%; 
+                margin: 0px; 
+                padding: 0px; 
+                background-color: black; 
+                color: #CCCCCC;
+                text-align: center}
+            #map_canvas { width:90%; 
+                height:80%; 
+                margin-left: auto; 
+                margin-right: auto }
+        </style>
+        <script type="text/javascript"
+            src="http://maps.google.com/maps/api/js?sensor=false">
+        </script>
+        <script type="text/javascript">
+            function initialize() {
+                var classroom = new google.maps.LatLng(36.703419, -106.235666)
+                var Home = new google.maps.LatLng(36.704419, -106.235666)
+                var myOptions = {
+                    zoom: 20,
+                    center: classroom,
+                    mapTypeId: google.maps.MapTypeId.TERRAIN
+                };
+                var map = new google.maps.Map(
+                    document.getElementById("map_canvas"), 
+                    myOptions);
+                    
+                var classroomMarker = new google.maps.Marker({
+              position: Home,
+              title:"Camp Site Bitches - Posted: No gays"
+              });
+            classroomMarker.setMap(map);
+            }
+        </script>
+    </head>
+    
+    <body onload="initialize()">
+    
+    <p>
+	The "Kyle Needs a Golden Grill" Trip<br>
+	Date:  September 27,2014
+	
+        <h1>This is the campsite, the gold is just a short walk from the site <br>
+             Try and hold it down Thad... Please!</h1>
+        <div id="map_canvas"></div>
+        
+	
+	
+	<h1>What to Bring:</h1>
+	<p>Boots, Beer, snacks and a lunch</p>
+	<br>
+	
+	<h2>How long is the Drive: </h2>
+	<p>About 161 miles, thats about 3 hours to the panning area</p>
+	<br>
+	
+	<h2>When do we leave:</h2>
+	<p>BCOD Saturday morning.  We will drive to Santa Fe and meet up with the gold guy there.  Then we caravan out to the spot.</p>
+	<br>
+	
+	<h2>Restrictions:</h2>
+	<p>NO Rats, NO Maddies, NO Gay Fondling or Grabbing, NO Holstering</p>
+	<br>
+	
+	<h2>Map will be updated if changes arrise so visit the site as necessary </h2>
+	<p></p>
+	<p></p>
+    </body>
+</html>
