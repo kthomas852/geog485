@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title> Bryce's B-day Bash </title>
+        <style type="text/css">
+            html { height: 100% }
+            body { height: 100%; 
+                margin: 0px; 
+                padding: 0px; 
+                background-color: black; 
+                color: #CCCCCC;
+                text-align: center}
+            #map_canvas { width:90%; 
+                height:80%; 
+                margin-left: auto; 
+                margin-right: auto }
+        </style>
+        <script type="text/javascript"
+            src="http://maps.google.com/maps/api/js?sensor=false">
+        </script>
+        <script type="text/javascript">
+            function initialize() {
+                var classroom = new google.maps.LatLng(35.123325, -106.509239)
+                var Home = new google.maps.LatLng(35.123325, -106.509239)
+                var myOptions = {
+                    zoom: 18,
+                    center: classroom,
+                    mapTypeId: google.maps.MapTypeId.STREET
+                };
+                var map = new google.maps.Map(
+                    document.getElementById("map_canvas"), 
+                    myOptions);
+                    
+                var classroomMarker = new google.maps.Marker({
+              position: Home,
+              title:"Camp Site Bitches - Posted: No gays"
+              });
+            classroomMarker.setMap(map);
+            }
+        </script>
+    </head>
+    
+    <body onload="initialize()">
+    
+    <p>
+	Bryce's B-day Bash<br>
+	Date:  October 4,2014
+	
+        <h1>Come one come all to Bryce's 2nd birthday!</h1>
+        <div id="map_canvas"></div>
+        
+	
+	
+	<h1>What to Bring:</h1>
+	<p>your smiling faces and lots of patients for small children<br>
+		A present is optional (less plastic and more story/bed time stuff)</p>
+	<br>
+	
+	<h2>Time and Place: </h2>
+	<p>Party kicks off at around 3pm at Holiday park off Comanche between Juan Tabo and Tramway</p>
+	<br>
+	
+	
+	
+	<h2>Map will be updated if changes arrise so visit the site as necessary </h2>
+	<p></p>
+	<p></p>
+    </body>
+</html>
